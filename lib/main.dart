@@ -16,6 +16,9 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: const MyFormScreen(),
+      routes: {
+        '/output': (context) => const OutputScreen(), // Add this line
+      },
     );
   }
 }
@@ -44,20 +47,19 @@ class _MyFormScreenState extends State<MyFormScreen> {
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      Navigator.push(
+      Navigator.pushNamed(
         context,
-        MaterialPageRoute(
-          builder: (context) => OutputScreen(
-            username: _username,
-            password: _password,
-            email: _email,
-            rememberMe: _rememberMe,
-            gender: _gender,
-            country: _country,
-            age: _age,
-            selectedDate: _selectedDate,
-          ),
-        ),
+        '/output',
+        arguments: {
+          'username': _username,
+          'password': _password,
+          'email': _email,
+          'rememberMe': _rememberMe,
+          'gender': _gender,
+          'country': _country,
+          'age': _age,
+          'selectedDate': _selectedDate,
+        },
       );
     }
   }
